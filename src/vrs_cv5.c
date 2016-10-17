@@ -64,7 +64,7 @@ void adc_init(void)
   ADC_InitStructure.ADC_NbrOfConversion = 1;
   ADC_Init(ADC1, &ADC_InitStructure);
 /* ADCx regular channel8 configuration */
-  ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_16Cycles);
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_384Cycles);
 
   /* Enable the ADC */
   ADC_Cmd(ADC1, ENABLE);
@@ -79,11 +79,75 @@ void adc_init(void)
 }
 void ADC1_IRQHandler(void)		//startup_stm32l1xx_hd.s
 {
-	if(ADC1->SR & ADC_SR_EOC)
+	if(ADC1->SR & ADC_SR_EOC){
 		value = ADC1->DR;
+		//ADC_ClearFlag(ADC1, ADC_FLAG_EOC);
+	}
+
+
 }
 void blink_delay(uint16_t AD_value)
 {
 	 int i = 0;
 	 for(i=0;i<(5000+10*AD_value);i++);
+}
+
+void UsartInit(void){
+
+	/* PA10->RX PA9->TX */
+	GPIO_InitTypeDef      GPIO_InitStructure;
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource9, GPIO_AF_USART1);
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource10, GPIO_AF_USART1);
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+
+	/* USART1 init */
+	USART_InitTypeDef USART_InitStructure;
+	USART_InitStructure.USART_BaudRate = 9600;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+	USART_Init(USART1, &USART_InitStructure);
+
+	USART_Cmd(USART1, ENABLE);
+
+}
+void USART_IRQ_init(void){
+	NVIC_InitTypeDef NVIC_InitStruct;
+	NVIC_InitStruct.NVIC_IRQChannel = USART1_IRQn;
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 1;
+	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStruct);
+	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+	USART_ITConfig(USART1, USART_IT_TXE, ENABLE);
+}
+void USART1_IRQHandler(void)		//startup_stm32l1xx_hd.s
+{
+	static i=0, size=5, mode=0;
+	static uint8_t buffer[]={"2.93V"};
+	if(USART1->SR & USART_FLAG_RXNE){
+		if(USART_ReceiveData(USART1) == 'm')
+			mode = !mode;
+		USART_ClearFlag(USART1, USART_FLAG_RXNE);
+	}
+	if(USART1->SR & USART_FLAG_TC){
+		if(i==0){
+
+		}
+		USART_ClearFlag(USART1, USART_FLAG_TC);
+		USART_SendData(USART1, buffer[i]);
+		i++;
+		if(i>=size)i=0;
+	}
 }

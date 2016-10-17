@@ -36,6 +36,7 @@ SOFTWARE.
 /* Private macro */
 /* Private variables */
 volatile uint16_t value;
+uint8_t buffer[]={"2.93V"};
 /* Private function prototypes */
 /* Private functions */
 
@@ -69,19 +70,19 @@ int main(void)
   */
 
   /* TODO - Add your application code here */
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
   adc_init();
   ADC_IRQ_init();
   led_init();
-
+  UsartInit();
+  USART_IRQ_init();
 
 
   /* Infinite loop */
   while (1)
   {
-	  blink_delay(value);
-	  GPIO_ToggleBits(GPIOA, GPIO_Pin_5);
-  }
+	blink_delay(value);
+	GPIO_ToggleBits(GPIOA, GPIO_Pin_5);
+	}
   return 0;
 }
 

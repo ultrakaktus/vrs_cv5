@@ -14,5 +14,7 @@ void ADC_IRQ_init(void);
 void led_init(void);
 void adc_init(void);
 void blink_delay(uint16_t AD_value);
+void UsartInit(void);
+void USART_IRQ_init(void);
 
 #endif /* VRS_CV5_H_ */
