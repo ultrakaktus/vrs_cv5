@@ -36,7 +36,7 @@ SOFTWARE.
 /* Private macro */
 /* Private variables */
 volatile uint16_t value;
-uint8_t buffer[]={"2.93V"};
+
 /* Private function prototypes */
 /* Private functions */
 

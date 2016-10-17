@@ -143,6 +143,22 @@ void USART1_IRQHandler(void)		//startup_stm32l1xx_hd.s
 	}
 	if(USART1->SR & USART_FLAG_TC){
 		if(i==0){
+			if(mode == 0){
+				buffer[0] = value/1000  + '0';
+				buffer[1] = (value/100) % 10  + '0';
+				buffer[2] = (value/10) % 10  + '0';
+				buffer[3] = value % 10  + '0';
+				size = 4;
+			}
+			else{
+				uint32_t tmp = (330000 * value)/4095; // tmp je volt * 10^-5
+				buffer[0] = (tmp/100000) + '0';
+				buffer[1] = ',';
+				buffer[2] = (tmp/10000) % 10  + '0';
+				buffer[3] = (tmp/1000) % 10  + '0';
+				buffer[4] = 'V';
+				size = 5;
+			}
 
 		}
 		USART_ClearFlag(USART1, USART_FLAG_TC);
