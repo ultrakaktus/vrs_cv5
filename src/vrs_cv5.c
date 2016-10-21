@@ -6,9 +6,15 @@
  */
 #include "vrs_cv5.h"
 
-extern volatile uint16_t value;
+/*************** VARIABLES *******************************/
 
-void ADC_IRQ_init(void){
+volatile uint16_t value;			//value from ADC
+
+
+/*************** ADC interrupt init **********************/
+
+void ADC_IRQ_init(void)
+{
 	NVIC_InitTypeDef NVIC_InitStruct;
 	NVIC_InitStruct.NVIC_IRQChannel = ADC1_IRQn;
 	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 1;
@@ -16,7 +22,11 @@ void ADC_IRQ_init(void){
 	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStruct);
 	ADC_ITConfig(ADC1, ADC_IT_EOC, ENABLE);
+	ADC_ITConfig(ADC1, ADC_IT_OVR, ENABLE);
 }
+
+/*************** LED init ********************************/
+
 void led_init(void)
 {
 	GPIO_InitTypeDef      GPIO_InitStructure;
@@ -28,6 +38,9 @@ void led_init(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_40MHz;
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
+
+/*************** ADC init *******************************/
+
 void adc_init(void)
 {
   GPIO_InitTypeDef      GPIO_InitStructure;
@@ -36,18 +49,15 @@ void adc_init(void)
   /* Enable GPIO clock */
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);//Opravené a upravené
 
-
   /* Configure ADCx Channel 2 as analog input */
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 ;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-
-
-/* Enable the HSI oscillator */
+  /* Enable the HSI oscillator */
   RCC_HSICmd(ENABLE);
-/* Check that HSI oscillator is ready */
+  /* Check that HSI oscillator is ready */
   while(RCC_GetFlagStatus(RCC_FLAG_HSIRDY) == RESET);
 
   /* Enable ADC clock */
@@ -63,7 +73,8 @@ void adc_init(void)
   ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
   ADC_InitStructure.ADC_NbrOfConversion = 1;
   ADC_Init(ADC1, &ADC_InitStructure);
-/* ADCx regular channel8 configuration */
+
+  /* ADCx regular channel8 configuration */
   ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_384Cycles);
 
   /* Enable the ADC */
@@ -77,22 +88,34 @@ void adc_init(void)
   /* Start ADC Software Conversion */
   ADC_SoftwareStartConv(ADC1);
 }
+
+/*************** ADC interrupt *******************************/
+
 void ADC1_IRQHandler(void)		//startup_stm32l1xx_hd.s
 {
-	if(ADC1->SR & ADC_SR_EOC){
+	if(ADC_GetFlagStatus(ADC1, ADC_FLAG_OVR)) //if overrun send 'E' (= overrun error)
+	{
+		USART_SendData(USART1, 'E');
+	}
+	if(ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC))
+	{
+	//if(ADC1->SR & ADC_SR_EOC){
 		value = ADC1->DR;
 		//ADC_ClearFlag(ADC1, ADC_FLAG_EOC);
 	}
-
-
 }
+
+/*************** LED blink period *********************/
+
 void blink_delay(uint16_t AD_value)
 {
 	 int i = 0;
 	 for(i=0;i<(5000+10*AD_value);i++);
 }
 
-void UsartInit(void){
+/*************** UART init ****************************/
+void UsartInit(void)
+{
 
 	/* PA10->RX PA9->TX */
 	GPIO_InitTypeDef      GPIO_InitStructure;
@@ -122,7 +145,11 @@ void UsartInit(void){
 	USART_Cmd(USART1, ENABLE);
 
 }
-void USART_IRQ_init(void){
+
+/*************** USART interrupt init *************************/
+
+void USART_IRQ_init(void)
+{
 	NVIC_InitTypeDef NVIC_InitStruct;
 	NVIC_InitStruct.NVIC_IRQChannel = USART1_IRQn;
 	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 1;
@@ -132,32 +159,44 @@ void USART_IRQ_init(void){
 	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
 	USART_ITConfig(USART1, USART_IT_TXE, ENABLE);
 }
+
+/*************** USART interrupt *************************/
+
 void USART1_IRQHandler(void)		//startup_stm32l1xx_hd.s
 {
 	static i=0, size=5, mode=0;
 	static uint8_t buffer[]={"2.93V"};
-	if(USART1->SR & USART_FLAG_RXNE){
+	if(USART1->SR & USART_FLAG_RXNE)
+	{
 		if(USART_ReceiveData(USART1) == 'm')
 			mode = !mode;
 		USART_ClearFlag(USART1, USART_FLAG_RXNE);
 	}
-	if(USART1->SR & USART_FLAG_TC){
-		if(i==0){
+
+	if(USART1->SR & USART_FLAG_TC)
+	{
+		if(i==0)
+		{
+			//Send raw ADC value:
 			if(mode == 0){
 				buffer[0] = value/1000  + '0';
 				buffer[1] = (value/100) % 10  + '0';
 				buffer[2] = (value/10) % 10  + '0';
 				buffer[3] = value % 10  + '0';
-				size = 4;
+				buffer[4] = '\n';
+				size = 5;
 			}
-			else{
+			//Send value in volts:
+			else
+			{
 				uint32_t tmp = (330000 * value)/4095; // tmp je volt * 10^-5
 				buffer[0] = (tmp/100000) + '0';
 				buffer[1] = ',';
 				buffer[2] = (tmp/10000) % 10  + '0';
 				buffer[3] = (tmp/1000) % 10  + '0';
 				buffer[4] = 'V';
-				size = 5;
+				buffer[5] = '\n';
+				size = 6;
 			}
 
 		}

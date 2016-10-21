@@ -35,7 +35,7 @@ SOFTWARE.
 /* Private define  */
 /* Private macro */
 /* Private variables */
-volatile uint16_t value;
+
 
 /* Private function prototypes */
 /* Private functions */
@@ -81,7 +81,7 @@ int main(void)
   while (1)
   {
 	blink_delay(value);
-	GPIO_ToggleBits(GPIOA, GPIO_Pin_5);
+	GPIO_ToggleBits(GPIOA, GPIO_Pin_5);		//zmena stavu LED
 	}
   return 0;
 }

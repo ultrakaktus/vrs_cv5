@@ -13,7 +13,7 @@ Allocating common symbols
 Common symbol       size              file
 
 errno               0x4               c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7-m\libnosys.a(errno.o)
-value               0x2               src\main.o
+value               0x2               src\vrs_cv5.o
 
 Discarded input sections
 
@@ -1536,7 +1536,7 @@ LOAD c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib
                 0x08000000                g_pfnVectors
                 0x0800013c                . = ALIGN (0x4)
 
-.text           0x0800013c     0x13dc
+.text           0x0800013c     0x140c
                 0x0800013c                . = ALIGN (0x4)
  *(.text)
  .text          0x0800013c       0x40 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
@@ -1703,96 +1703,96 @@ LOAD c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib
  .text.SetSysClock
                 0x08000f4c      0x120 src\system_stm32l1xx.o
  .text.ADC_IRQ_init
-                0x0800106c       0x38 src\vrs_cv5.o
+                0x0800106c       0x44 src\vrs_cv5.o
                 0x0800106c                ADC_IRQ_init
  .text.led_init
-                0x080010a4       0x30 src\vrs_cv5.o
-                0x080010a4                led_init
+                0x080010b0       0x30 src\vrs_cv5.o
+                0x080010b0                led_init
  .text.adc_init
-                0x080010d4       0xa4 src\vrs_cv5.o
-                0x080010d4                adc_init
+                0x080010e0       0xa4 src\vrs_cv5.o
+                0x080010e0                adc_init
  .text.ADC1_IRQHandler
-                0x08001178       0x2c src\vrs_cv5.o
-                0x08001178                ADC1_IRQHandler
+                0x08001184       0x44 src\vrs_cv5.o
+                0x08001184                ADC1_IRQHandler
  .text.blink_delay
-                0x080011a4       0x3c src\vrs_cv5.o
-                0x080011a4                blink_delay
+                0x080011c8       0x3c src\vrs_cv5.o
+                0x080011c8                blink_delay
  .text.UsartInit
-                0x080011e0       0x8c src\vrs_cv5.o
-                0x080011e0                UsartInit
+                0x08001204       0x8c src\vrs_cv5.o
+                0x08001204                UsartInit
  .text.USART_IRQ_init
-                0x0800126c       0x44 src\vrs_cv5.o
-                0x0800126c                USART_IRQ_init
+                0x08001290       0x44 src\vrs_cv5.o
+                0x08001290                USART_IRQ_init
  .text.USART1_IRQHandler
-                0x080012b0      0x204 src\vrs_cv5.o
-                0x080012b0                USART1_IRQHandler
+                0x080012d4      0x210 src\vrs_cv5.o
+                0x080012d4                USART1_IRQHandler
  .text.__libc_init_array
-                0x080014b4       0x4c c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7-m\libc_nano.a(lib_a-init.o)
-                0x080014b4                __libc_init_array
+                0x080014e4       0x4c c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7-m\libc_nano.a(lib_a-init.o)
+                0x080014e4                __libc_init_array
  *(.glue_7)
- .glue_7        0x08001500        0x0 linker stubs
+ .glue_7        0x08001530        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08001500        0x0 linker stubs
+ .glue_7t       0x08001530        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x08001500        0x0 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
+ .eh_frame      0x08001530        0x0 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
  *(.init)
- .init          0x08001500        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crti.o
-                0x08001500                _init
- .init          0x08001504        0x8 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtn.o
+ .init          0x08001530        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crti.o
+                0x08001530                _init
+ .init          0x08001534        0x8 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtn.o
  *(.fini)
- .fini          0x0800150c        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crti.o
-                0x0800150c                _fini
- .fini          0x08001510        0x8 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtn.o
-                0x08001518                . = ALIGN (0x4)
-                0x08001518                _etext = .
+ .fini          0x0800153c        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crti.o
+                0x0800153c                _fini
+ .fini          0x08001540        0x8 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtn.o
+                0x08001548                . = ALIGN (0x4)
+                0x08001548                _etext = .
 
-.vfp11_veneer   0x08001518        0x0
- .vfp11_veneer  0x08001518        0x0 linker stubs
+.vfp11_veneer   0x08001548        0x0
+ .vfp11_veneer  0x08001548        0x0 linker stubs
 
-.v4_bx          0x08001518        0x0
- .v4_bx         0x08001518        0x0 linker stubs
+.v4_bx          0x08001548        0x0
+ .v4_bx         0x08001548        0x0 linker stubs
 
-.iplt           0x08001518        0x0
- .iplt          0x08001518        0x0 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
+.iplt           0x08001548        0x0
+ .iplt          0x08001548        0x0 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
 
-.rel.dyn        0x08001518        0x0
- .rel.iplt      0x08001518        0x0 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
+.rel.dyn        0x08001548        0x0
+ .rel.iplt      0x08001548        0x0 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
 
-.rodata         0x08001518        0x0
-                0x08001518                . = ALIGN (0x4)
+.rodata         0x08001548        0x0
+                0x08001548                . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
-                0x08001518                . = ALIGN (0x4)
+                0x08001548                . = ALIGN (0x4)
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
 
-.ARM            0x08001518        0x0
-                0x08001518                __exidx_start = .
+.ARM            0x08001548        0x0
+                0x08001548                __exidx_start = .
  *(.ARM.exidx*)
-                0x08001518                __exidx_end = .
+                0x08001548                __exidx_end = .
 
-.preinit_array  0x08001518        0x0
-                0x08001518                PROVIDE (__preinit_array_start, .)
+.preinit_array  0x08001548        0x0
+                0x08001548                PROVIDE (__preinit_array_start, .)
  *(.preinit_array*)
-                0x08001518                PROVIDE (__preinit_array_end, .)
+                0x08001548                PROVIDE (__preinit_array_end, .)
 
-.init_array     0x08001518        0x4
-                0x08001518                PROVIDE (__init_array_start, .)
+.init_array     0x08001548        0x4
+                0x08001548                PROVIDE (__init_array_start, .)
  *(SORT(.init_array.*))
  *(.init_array*)
- .init_array    0x08001518        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
-                0x0800151c                PROVIDE (__init_array_end, .)
+ .init_array    0x08001548        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
+                0x0800154c                PROVIDE (__init_array_end, .)
 
-.fini_array     0x0800151c        0x4
+.fini_array     0x0800154c        0x4
                 [!provide]                PROVIDE (__fini_array_start, .)
  *(SORT(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0800151c        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
+ .fini_array    0x0800154c        0x4 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
                 [!provide]                PROVIDE (__fini_array_end, .)
-                0x08001520                _sidata = LOADADDR (.data)
+                0x08001550                _sidata = LOADADDR (.data)
 
-.data           0x20000000       0x28 load address 0x08001520
+.data           0x20000000       0x28 load address 0x08001550
                 0x20000000                . = ALIGN (0x4)
                 0x20000000                _sdata = .
  *(.data)
@@ -1802,29 +1802,29 @@ LOAD c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib
  *fill*         0x20000009        0x3 
  .data.APBAHBPrescTable
                 0x2000000c       0x10 Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.o
- .data.buffer.6494
+ .data.buffer.6499
                 0x2000001c        0x6 src\vrs_cv5.o
  *fill*         0x20000022        0x2 
- .data.size.6492
+ .data.size.6497
                 0x20000024        0x4 src\vrs_cv5.o
                 0x20000028                . = ALIGN (0x4)
                 0x20000028                _edata = .
 
-.igot.plt       0x20000028        0x0 load address 0x08001548
+.igot.plt       0x20000028        0x0 load address 0x08001578
  .igot.plt      0x20000028        0x0 c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
                 0x20000028                . = ALIGN (0x4)
 
-.bss            0x20000028       0x28 load address 0x08001548
+.bss            0x20000028       0x28 load address 0x08001578
                 0x20000028                _sbss = .
                 0x20000028                __bss_start__ = _sbss
  *(.bss)
  .bss           0x20000028       0x1c c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/armv7-m/crtbegin.o
  *(.bss*)
- .bss.mode.6493
+ .bss.mode.6498
                 0x20000044        0x4 src\vrs_cv5.o
- .bss.i.6491    0x20000048        0x4 src\vrs_cv5.o
+ .bss.i.6496    0x20000048        0x4 src\vrs_cv5.o
  *(COMMON)
- COMMON         0x2000004c        0x2 src\main.o
+ COMMON         0x2000004c        0x2 src\vrs_cv5.o
                 0x2000004c                value
                 0x20000050                . = ALIGN (0x4)
  *fill*         0x2000004e        0x2 
@@ -1832,7 +1832,7 @@ LOAD c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib
                 0x20000050                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x20000050      0x400 load address 0x08001548
+                0x20000050      0x400 load address 0x08001578
                 0x20000050                . = ALIGN (0x4)
                 [!provide]                PROVIDE (end, .)
                 [!provide]                PROVIDE (_end, .)
@@ -1891,11 +1891,11 @@ OUTPUT(vrs_cv5.elf elf32-littlearm)
  .debug_info    0x0000120f      0x65f Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.o
  .debug_info    0x0000186e      0xa29 Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.o
  .debug_info    0x00002297      0x9ce Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.o
- .debug_info    0x00002c65      0x28b src\main.o
- .debug_info    0x00002ef0       0x74 src\startup_stm32l1xx_hd.o
- .debug_info    0x00002f64      0x133 src\stm32l1xx_it.o
- .debug_info    0x00003097      0x568 src\system_stm32l1xx.o
- .debug_info    0x000035ff      0x963 src\vrs_cv5.o
+ .debug_info    0x00002c65      0x285 src\main.o
+ .debug_info    0x00002eea       0x74 src\startup_stm32l1xx_hd.o
+ .debug_info    0x00002f5e      0x133 src\stm32l1xx_it.o
+ .debug_info    0x00003091      0x568 src\system_stm32l1xx.o
+ .debug_info    0x000035f9      0x969 src\vrs_cv5.o
 
 .debug_abbrev   0x00000000      0xc1f
  .debug_abbrev  0x00000000      0x149 Libraries\STM32L1xx_StdPeriph_Driver\src\misc.o
@@ -1943,17 +1943,17 @@ OUTPUT(vrs_cv5.elf elf32-littlearm)
  .debug_ranges  0x00000498       0x20 src\system_stm32l1xx.o
  .debug_ranges  0x000004b8       0x48 src\vrs_cv5.o
 
-.debug_line     0x00000000     0x1e29
+.debug_line     0x00000000     0x1e3b
  .debug_line    0x00000000      0x242 Libraries\STM32L1xx_StdPeriph_Driver\src\misc.o
  .debug_line    0x00000242      0x592 Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.o
  .debug_line    0x000007d4      0x35d Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.o
  .debug_line    0x00000b31      0x521 Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_rcc.o
  .debug_line    0x00001052      0x4af Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_usart.o
- .debug_line    0x00001501      0x1c2 src\main.o
- .debug_line    0x000016c3       0x7c src\startup_stm32l1xx_hd.o
- .debug_line    0x0000173f      0x1e7 src\stm32l1xx_it.o
- .debug_line    0x00001926      0x21a src\system_stm32l1xx.o
- .debug_line    0x00001b40      0x2e9 src\vrs_cv5.o
+ .debug_line    0x00001501      0x1cf src\main.o
+ .debug_line    0x000016d0       0x7c src\startup_stm32l1xx_hd.o
+ .debug_line    0x0000174c      0x1e7 src\stm32l1xx_it.o
+ .debug_line    0x00001933      0x21a src\system_stm32l1xx.o
+ .debug_line    0x00001b4d      0x2ee src\vrs_cv5.o
 
 .debug_str      0x00000000     0x1c35
  .debug_str     0x00000000      0x3ba Libraries\STM32L1xx_StdPeriph_Driver\src\misc.o
@@ -1987,7 +1987,7 @@ OUTPUT(vrs_cv5.elf elf32-littlearm)
  .comment       0x0000007e       0x7f src\system_stm32l1xx.o
  .comment       0x0000007e       0x7f src\vrs_cv5.o
 
-.debug_frame    0x00000000     0x16d8
+.debug_frame    0x00000000     0x16d4
  .debug_frame   0x00000000       0xd8 Libraries\STM32L1xx_StdPeriph_Driver\src\misc.o
  .debug_frame   0x000000d8      0x5fc Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_adc.o
  .debug_frame   0x000006d4      0x23c Libraries\STM32L1xx_StdPeriph_Driver\src\stm32l1xx_gpio.o
@@ -1996,8 +1996,8 @@ OUTPUT(vrs_cv5.elf elf32-littlearm)
  .debug_frame   0x00001384       0x6c src\main.o
  .debug_frame   0x000013f0      0x110 src\stm32l1xx_it.o
  .debug_frame   0x00001500       0x7c src\system_stm32l1xx.o
- .debug_frame   0x0000157c      0x130 src\vrs_cv5.o
- .debug_frame   0x000016ac       0x2c c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7-m\libc_nano.a(lib_a-init.o)
+ .debug_frame   0x0000157c      0x12c src\vrs_cv5.o
+ .debug_frame   0x000016a8       0x2c c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7-m\libc_nano.a(lib_a-init.o)
 
 .stabstr        0x00000000       0x3f
  .stabstr       0x00000000       0x3f c:/program files (x86)/atollic/truestudio for arm 6.0.0/armtools/bin/../lib/gcc/arm-atollic-eabi/5.3.1/../../../../arm-atollic-eabi/lib/armv7-m\libnosys.a(write.o)
@@ -2731,5 +2731,5 @@ strlen                                            c:/program files (x86)/atollic
 ts_formatlength                                   src\tiny_printf.o
 ts_formatstring                                   src\tiny_printf.o
 ts_itoa                                           src\tiny_printf.o
-value                                             src\main.o
-                                                  src\vrs_cv5.o
+value                                             src\vrs_cv5.o
+                                                  src\main.o
