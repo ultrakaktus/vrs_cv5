@@ -9,6 +9,9 @@
 /*************** VARIABLES *******************************/
 
 volatile uint16_t value;			//value from ADC
+uint8_t buffer[6][2];
+uint8_t mode = 0;
+uint8_t HalfTX = 0;
 
 
 /*************** ADC interrupt init **********************/
@@ -109,8 +112,13 @@ void ADC1_IRQHandler(void)		//startup_stm32l1xx_hd.s
 
 void blink_delay(uint16_t AD_value)
 {
-	 int i = 0;
-	 for(i=0;i<(5000+10*AD_value);i++);
+	 static int i = 0;
+	 //for(i=0;i<(5000+10*AD_value);i++);
+	 if(i>=(500+1*AD_value)){
+		 GPIO_ToggleBits(GPIOA, GPIO_Pin_5);		//zmena stavu LED
+		 i = 0;
+	 }
+	 else i++;
 }
 
 /*************** UART init ****************************/
@@ -164,45 +172,22 @@ void USART_IRQ_init(void)
 
 void USART1_IRQHandler(void)		//startup_stm32l1xx_hd.s
 {
-	static i=0, size=5, mode=0;
-	static uint8_t buffer[]={"2.93V"};
+	static i=0;
 	if(USART1->SR & USART_FLAG_RXNE)
 	{
 		if(USART_ReceiveData(USART1) == 'm')
 			mode = !mode;
 		USART_ClearFlag(USART1, USART_FLAG_RXNE);
 	}
-
 	if(USART1->SR & USART_FLAG_TC)
 	{
-		if(i==0)
-		{
-			//Send raw ADC value:
-			if(mode == 0){
-				buffer[0] = value/1000  + '0';
-				buffer[1] = (value/100) % 10  + '0';
-				buffer[2] = (value/10) % 10  + '0';
-				buffer[3] = value % 10  + '0';
-				buffer[4] = '\n';
-				size = 5;
-			}
-			//Send value in volts:
-			else
-			{
-				uint32_t tmp = (330000 * value)/4095; // tmp je volt * 10^-5
-				buffer[0] = (tmp/100000) + '0';
-				buffer[1] = ',';
-				buffer[2] = (tmp/10000) % 10  + '0';
-				buffer[3] = (tmp/1000) % 10  + '0';
-				buffer[4] = 'V';
-				buffer[5] = '\n';
-				size = 6;
-			}
-
-		}
 		USART_ClearFlag(USART1, USART_FLAG_TC);
-		USART_SendData(USART1, buffer[i]);
+		USART_SendData(USART1, buffer[i][HalfTX]);
 		i++;
-		if(i>=size)i=0;
+		if(i>=(5+mode)){
+			i=0;
+			if(HalfTX)HalfTX = 0;
+			else HalfTX = 1;
+		}
 	}
 }

@@ -11,6 +11,9 @@
 #include "stm32l1xx.h"
 
 extern volatile uint16_t value;			//value from ADC
+extern uint8_t HalfTX;
+extern uint8_t mode;
+extern uint8_t buffer[6][2];
 
 void ADC_IRQ_init(void);				//ADC interrupt init
 void USART_IRQ_init(void);				//UART interrupt init
