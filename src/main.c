@@ -68,6 +68,7 @@ int main(void)
   */
 
   /* TODO - Add your application code here */
+  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
   adc_init();
   ADC_IRQ_init();
   led_init();
