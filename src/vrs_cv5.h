@@ -23,6 +23,6 @@ void blink_delay(uint16_t AD_value);	//LED blink period
 void UsartInit(void);					//UART GPIO init
 void ADC1_IRQHandler(void);				//ADC interrupt
 void USART1_IRQHandler(void);			//UART interrupt
-
+void ParseData(void); 					//parse measured data to output buffer
 
 #endif /* VRS_CV5_H_ */

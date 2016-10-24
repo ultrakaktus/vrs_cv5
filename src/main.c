@@ -49,7 +49,6 @@ SOFTWARE.
 */
 int main(void)
 {
-	uint8_t HalfTX_old = !HalfTX;
 
   /**
   *  IMPORTANT NOTE!
@@ -79,29 +78,7 @@ int main(void)
   /* Infinite loop */
   while (1)
   {
-	if(HalfTX_old != HalfTX)
-	{
-		//Send raw ADC value:
-		if(mode == 0){
-			buffer[0][HalfTX] = value/1000  + '0';
-			buffer[1][HalfTX] = (value/100) % 10  + '0';
-			buffer[2][HalfTX] = (value/10) % 10  + '0';
-			buffer[3][HalfTX] = value % 10  + '0';
-			buffer[4][HalfTX] = '\n';
-		}
-		//Send value in volts:
-		else
-		{
-			uint32_t tmp = (330000 * value)/4095; // tmp je volt * 10^-5
-			buffer[0][HalfTX] = (tmp/100000) + '0';
-			buffer[1][HalfTX] = ',';
-			buffer[2][HalfTX] = (tmp/10000) % 10  + '0';
-			buffer[3][HalfTX] = (tmp/1000) % 10  + '0';
-			buffer[4][HalfTX] = 'V';
-			buffer[5][HalfTX] = '\n';
-		}
-
-	}
+	ParseData();
 	blink_delay(value);
 	}
   return 0;
